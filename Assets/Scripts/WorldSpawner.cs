@@ -6,9 +6,10 @@ public class WorldSpawner : MonoBehaviour
 {
     public GameObject[] tiles;
     private List<GameObject> tilesCurrent = new List<GameObject>();
+    private GameObject player;
     public float zLocation = 0;
     public float tileLength = 30;
-    public int tilesToRender = 7;
+    public int tilesToRender = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,7 @@ public class WorldSpawner : MonoBehaviour
         {
             AddTile(Random.Range(1, tiles.Length));
         }
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -30,6 +32,10 @@ public class WorldSpawner : MonoBehaviour
                 AddTile(Random.Range(1, tiles.Length));
             }
         }
+        if(player == null)
+        {
+            GameOver();
+        }
     }
 
     public void AddTile(int index)
@@ -37,5 +43,10 @@ public class WorldSpawner : MonoBehaviour
         GameObject tile = Instantiate(tiles[index], transform.forward * zLocation, transform.rotation);
         tilesCurrent.Add(tile);
         zLocation += tileLength;
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
     }
 }
