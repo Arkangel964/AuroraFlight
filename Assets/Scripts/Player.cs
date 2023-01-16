@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
             {
                 shield = true;
                 shieldObj.SetActive(true);
-                shieldTime = 115;
+                shieldTime = 180;
             }
         }
         if (shieldTime > 0)
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
             {
                 shield = false;
                 shieldObj.SetActive(false);
-                shieldCooldown = 115;
+                shieldCooldown = 180;
             }
         }
         if (shieldCooldown > 0)

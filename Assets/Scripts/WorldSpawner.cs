@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class WorldSpawner : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class WorldSpawner : MonoBehaviour
     public float zLocation = 0;
     public float tileLength = 30;
     public int tilesToRender = 5;
+    public int score = 0;
+    public Text scoreTextBox;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +39,10 @@ public class WorldSpawner : MonoBehaviour
         if(player == null)
         {
             GameOver();
+        } else
+        {
+            score = (int)player.transform.position.z;
+            scoreTextBox.text = score + "m";
         }
     }
 
