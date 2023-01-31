@@ -93,15 +93,15 @@ public class Player : MonoBehaviour
         {
             nextPosition += Vector3.right * laneOffset;
         }
-        controller.Move(direction * Time.fixedDeltaTime);
+        controller.Move(direction * Time.fixedDeltaTime * Time.timeScale);
         transform.position = Vector3.Lerp(transform.position, nextPosition, laneSwitchSmoothing * Time.deltaTime);
         if(transform.position.y < -15)
         {
             Destroy(gameObject);
         }
     }
-    
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         
     }
