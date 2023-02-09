@@ -26,10 +26,13 @@ public class WorldSpawner : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject gameOverMenu;
     public GameObject leaderboard;
+    public GameObject leaderboardTextPrefab;
     public bool paused;
+    public bool gameOver;
     // Start is called before the first frame update
     void Start()
     {
+        gameOver = false;
         leaderboardManager = gameObject.AddComponent<LeaderboardManager>();
         Debug.Log(leaderboardManager.getLeaderboard());
         AddTile(0);
@@ -51,15 +54,14 @@ public class WorldSpawner : MonoBehaviour
                 AddTile(Random.Range(1, tiles.Length));
             }
         }
-        if(player == null)
+        if(player == null && !gameOver)
         {
             GameOver();
-        } else
+        } else if (!gameOver)
         {
             score = (int)player.transform.position.z;
             scoreTextBox.text = score + "m";
         }
-        
     }
 
     public void AddTile(int index)
@@ -71,13 +73,15 @@ public class WorldSpawner : MonoBehaviour
 
     public void GameOver()
     {
+        gameOver = true;
         gameOverMenu.SetActive(true);
-        //string leaderboardText = leaderboardManager.getLeaderboard();
-        //dynamic stuff = JsonConvert.DeserializeObject(leaderboardText);
-        //foreach (var s in stuff)
-        //{
-        //    Console.WriteLine(s);
-        //}
+        string leaderboardText = leaderboardManager.getLeaderboard();
+        string[] leaderboardArray = leaderboardText.Split('\n');
+        foreach (string line in leaderboardArray)
+        {
+            GameObject leaderboardTextObject = Instantiate(leaderboardTextPrefab, leaderboard.transform);
+            leaderboardTextObject.GetComponent<Text>().text = line;
+        }
     }
     
     public void togglePause()

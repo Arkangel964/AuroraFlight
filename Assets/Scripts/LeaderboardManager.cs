@@ -20,7 +20,6 @@ public class LeaderboardManager : MonoBehaviour
     
     void addScore(string name, int score)
     {
-        //string msg = JsonUtility.ToJson(data);
         Dictionary<string, string> data = new Dictionary<string, string>();
         data.Add("name", name);
         data.Add("score", score.ToString());
@@ -51,8 +50,8 @@ public class LeaderboardManager : MonoBehaviour
                     if (fixedEntry.Length > 0)
                     {
                         string[] fields = fixedEntry.Split(',');
-                        string name = fields[0].Split(':')[1];
-                        string score = fields[1].Split(':')[1];
+                        string name = fields[1].Split(':')[1];
+                        string score = fields[2].Split(':')[1];
                         leaderboardText += name + ": " + score + "\n";
                     }
                 } catch (Exception e){
