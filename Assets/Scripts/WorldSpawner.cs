@@ -7,11 +7,6 @@ using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public struct Score
-{
-    public string name;
-    public string score;
-}
 public class WorldSpawner : MonoBehaviour
 {
     public GameObject[] tiles;
@@ -23,11 +18,10 @@ public class WorldSpawner : MonoBehaviour
     public int tilesToRender = 5;
     public int score = 0;
     public Text scoreTextBox;
-    public GameObject pauseMenu;
     public GameObject gameOverMenu;
     public GameObject leaderboard;
     public GameObject leaderboardTextPrefab;
-    public bool paused;
+    
     public bool gameOver;
     // Start is called before the first frame update
     void Start()
@@ -75,6 +69,7 @@ public class WorldSpawner : MonoBehaviour
     {
         gameOver = true;
         gameOverMenu.SetActive(true);
+        leaderboardManager.addScore(GlobalData.name, score);
         string leaderboardText = leaderboardManager.getLeaderboard();
         string[] leaderboardArray = leaderboardText.Split('\n');
         foreach (string line in leaderboardArray)
@@ -82,25 +77,5 @@ public class WorldSpawner : MonoBehaviour
             GameObject leaderboardTextObject = Instantiate(leaderboardTextPrefab, leaderboard.transform);
             leaderboardTextObject.GetComponent<Text>().text = line;
         }
-    }
-    
-    public void togglePause()
-    {
-        if (!paused)
-        {
-            Time.timeScale = 0;
-            pauseMenu.SetActive(true);
-            paused = true;
-        } else
-        {
-            Time.timeScale = 1;
-            pauseMenu.SetActive(false);
-            paused = false;
-        }
-    }
-    
-    public void restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

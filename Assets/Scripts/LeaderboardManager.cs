@@ -18,7 +18,7 @@ public class LeaderboardManager : MonoBehaviour
         return leaderboardText;
     }
     
-    void addScore(string name, int score)
+    public void addScore(string name, int score)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data.Add("name", name);
