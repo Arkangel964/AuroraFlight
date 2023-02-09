@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager.Requests;
@@ -9,18 +10,7 @@ using UnityEngine.Networking;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    string leaderboardText = "Nothing yet!";
-    // Start is called before the first frame update
-    void Start()
-    {
-        getLeaderboard();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    string leaderboardText = "";
 
     public string getLeaderboard()
     {
@@ -47,7 +37,29 @@ public class LeaderboardManager : MonoBehaviour
         } else
         {
             Debug.Log("Response: " + req.downloadHandler.text);
-            leaderboardText = req.downloadHandler.text;
+            leaderboardText = "";
+            string[] entries = req.downloadHandler.text.Split('}');
+            foreach (string entry in entries)
+            {
+                string fixedEntry = entry;
+                try {
+                    if (entry.StartsWith(","))
+                    {
+                        fixedEntry = entry.Substring(1);
+                    }
+                    Debug.Log("Current Entry: " + fixedEntry);
+                    if (fixedEntry.Length > 0)
+                    {
+                        string[] fields = fixedEntry.Split(',');
+                        string name = fields[0].Split(':')[1];
+                        string score = fields[1].Split(':')[1];
+                        leaderboardText += name + ": " + score + "\n";
+                    }
+                } catch (Exception e){
+                    Debug.Log("Error parsing: " + entry);
+                }
+            }
+            Debug.Log("Leaderboard: " + leaderboardText);
         }
     }
     IEnumerator postRequest(string url, Dictionary<string, string> data)
