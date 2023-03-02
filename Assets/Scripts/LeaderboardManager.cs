@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager.Requests;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,9 +11,14 @@ public class LeaderboardManager : MonoBehaviour
 {
     string leaderboardText = "";
 
+    public void Start()
+    {
+        getLeaderboard();
+    }
+
     public string getLeaderboard()
     {
-        StartCoroutine(getRequest("http://localhost:3000/score"));
+        StartCoroutine(getRequest("https://four941-aurora-server.onrender.com/score"));
         return leaderboardText;
     }
     
@@ -23,7 +27,7 @@ public class LeaderboardManager : MonoBehaviour
         Dictionary<string, string> data = new Dictionary<string, string>();
         data.Add("name", name);
         data.Add("score", score.ToString());
-        StartCoroutine(postRequest("http://localhost:3000/score", data));
+        StartCoroutine(postRequest("https://four941-aurora-server.onrender.com/score", data));
     }
 
     IEnumerator getRequest(string url)

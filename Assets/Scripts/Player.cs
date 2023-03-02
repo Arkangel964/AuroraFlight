@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
             {
                 shield = false;
                 shieldObj.SetActive(false);
-                shieldCooldown = 180;
+                shieldCooldown = 60;
             }
         }
         if (shieldCooldown > 0)
@@ -113,6 +113,9 @@ public class Player : MonoBehaviour
             if (!shield)
             {
                 Destroy(gameObject);
+            } else
+            {
+                Destroy(collision.gameObject);
             }
         }
         if (collision.gameObject.tag == "BlackHole")
