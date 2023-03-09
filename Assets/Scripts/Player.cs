@@ -81,17 +81,13 @@ public class Player : MonoBehaviour
 
                             }
                         }
-                        else
-                        {
-                            direction.y += gravity * Time.deltaTime;
-                        }
                         if(touchEnd.y < touchStart.y)
                         {   //Down swipe
                             if (!shield && shieldCooldown == 0 && shieldTime == 0)
                             {
                                 shield = true;
                                 shieldObj.SetActive(true);
-                                shieldTime = 180;
+                                shieldTime = 120;
                             }
                         }
                     }
@@ -104,8 +100,11 @@ public class Player : MonoBehaviour
         }
         
         direction.z = forwardSpeed;
-        
 
+        if(!controller.isGrounded)
+        {
+            direction.y += gravity * Time.deltaTime;
+        }
         /*if (controller.isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -143,7 +142,7 @@ public class Player : MonoBehaviour
                 shieldObj.SetActive(true);
                 shieldTime = 120;
             }
-        }
+        }*/
         if (shieldTime > 0)
         {
             shieldTime--;
@@ -153,7 +152,7 @@ public class Player : MonoBehaviour
                 shieldObj.SetActive(false);
                 shieldCooldown = 30;
             }
-        }*/
+        }
         if (shieldCooldown > 0)
         {
             shieldCooldown--;

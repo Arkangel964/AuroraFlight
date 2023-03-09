@@ -329,17 +329,17 @@ MonoBehaviour:
     swipe up to jump over them.
 
 
-    Sometimes you''ll encounter cosmic fire. Swipe
-    down to activate your shield to go through it. Be warned: your shield will go
-    on cooldown after use!
+    Sometimes you''ll encounter cosmic firewalls.
+    Swipe down to activate your shield to go through it. Be warned: your shield will
+    go on cooldown after use!
 
 
-    Beware of black holes! Your shield won''t save you
-    from them, you''ll have to move out of the way!
+    Beware of black holes! Your shield won''t save
+    you from them, you''ll have to move out of the way!
 
 
-    Now go, pilot, and travel
-    the galaxy!'
+    Now go, pilot, and
+    travel the galaxy!'
 --- !u!222 &291810842
 CanvasRenderer:
   m_ObjectHideFlags: 0
